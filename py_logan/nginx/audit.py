@@ -53,3 +53,63 @@ def parse_nginx_log(string: str) -> list:
             data["user_agent"] = user_agent_parser.Parse(data["user_agent"])
             result.append(data)
     return result
+
+
+def parse_logs(dir_path: str) -> list:
+    """
+    parse all the text files containing logs & extract the log data
+        >>> parse_logs("path/to/log/dir/")
+        []
+    """
+    logs = []
+    for log_file in get_log_files(dir_path):
+        try:
+            with open(log_file, "r") as f:
+                text = f.read()
+                logs.extend(parse_nginx_log(text))
+        except Exception as e:
+            print(e)
+
+    return logs
+
+
+def get_ip_information(ip: str) -> dict:
+    """
+    fetches ip information from http://ipinfo.io/
+        >>> get_ip_information('8.8.8.8')
+        {'ip': '8.8.8.8', 'hostname': 'dns.google', 'city': 'Mountain View', 'region': 'California', 'country': 'US', 'loc': '37.4056,-122.0775', 'org': 'AS15169 Google LLC', 'postal': '94043', 'timezone': 'America/Los_Angeles', 'readme': 'https://ipinfo.io/missingauth'}
+    """
+    r = requests.get("http://ipinfo.io/{}".format(ip))
+    if r.status_code == 200:
+        return r.json()
+    else:
+        print(r.content)
+        return None
+
+
+def get_demographic(data: list) -> list:
+    return list(map(get_ip_information, set(i["ip"] for i in data)))
+
+
+def generate_csv_reports(log_dir: str) -> None:
+    log_dir = "logs/"
+    demographic_csv = "demographic_report.csv"
+    main_report_csv = "main_report.csv"
+    data = parse_logs(log_dir)
+    if not data:
+        print("No Log data found in the dir {}".format(log_dir))
+        return None
+    demographic = get_demographic(data)
+    demographic_df = pd.DataFrame()
+    main_df = pd.DataFrame()
+    main_df = main_df.append(data)
+    if demographic:
+        demographic_df = demographic_df.append(demographic)
+        ips = [i["ip"] for i in data]
+        demographic_df["number_of_visits"] = demographic_df["ip"].apply(
+            lambda ip: ips.count(ip)
+        )
+        demographic_df.to_csv(demographic_csv, index=False)
+        main_df = pd.merge([main_df, demographic_df], on=["ip"], how="inner")
+    main_df.to_csv(main_report_csv, index=False)
+
