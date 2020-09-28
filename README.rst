@@ -3,8 +3,8 @@ Py Logan
 ========
 
 
-.. image:: https://img.shields.io/travis/wasi0013/python_loganalytics.svg
-        :target: https://travis-ci.com/wasi0013/python_loganalytics
+.. image:: https://img.shields.io/travis/wasi0013/python-loganalytics.svg
+        :target: https://travis-ci.com/wasi0013/python-loganalytics
 
 .. image:: https://readthedocs.org/projects/py-logan/badge/?version=latest
         :target: https://py-logan.readthedocs.io/en/latest/?badge=latest
