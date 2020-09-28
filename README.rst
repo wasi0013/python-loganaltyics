@@ -6,8 +6,8 @@ Py Logan
 .. image:: https://img.shields.io/travis/wasi0013/python_loganalytics.svg
         :target: https://travis-ci.com/wasi0013/python_loganalytics
 
-.. image:: https://readthedocs.org/projects/python_loganalytics/badge/?version=latest
-        :target: https://python_loganalytics.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/py-logan/badge/?version=latest
+        :target: https://py-logan.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
@@ -17,7 +17,7 @@ Py Logan is a log audit tool to analyze server access logs.
 
 
 * Free software: MIT license
-* Documentation: https://python_loganalytics.readthedocs.io.
+* Documentation: https://py-logan.readthedocs.io.
 
 
 Features
