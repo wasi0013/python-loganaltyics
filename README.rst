@@ -23,7 +23,7 @@ Py Logan is a log audit tool to analyze server access logs.
 Features
 --------
 
-* TODO
+* parse & evaluate nginx logs to generate csv reports using command: `audit --log='path/to/nginx/log/folder'`
 
 Credits
 -------
