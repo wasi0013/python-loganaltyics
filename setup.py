@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0', 'ua-parser>=0.10.0', 'pandas>=1.1.2' , 'requests']
 
 setup_requirements = ['pytest-runner', ]
 
@@ -34,7 +34,7 @@ setup(
     description="Py Logan is a log audit tool to analyze server access logs.",
     entry_points={
         'console_scripts': [
-            'py_logan=py_logan.cli:main',
+            'py_logan=py_logan.cli:audit',
         ],
     },
     install_requires=requirements,
@@ -47,7 +47,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/wasi0013/py_logan',
+    url='https://github.com/wasi0013/python-loganalytics',
     version='0.0.1',
     zip_safe=False,
 )
