@@ -1,16 +1,17 @@
 """Console script for py_logan."""
 import sys
 import click
-
+from py_logan.nginx.audit import generate_csv_reports
 
 @click.command()
-def main(args=None):
-    """Console script for py_logan."""
-    click.echo("Replace this message by putting your code into "
-               "py_logan.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
+@click.option('--server', default="nginx", help='Name of the web server')
+@click.option('--log',  help="Web server's log directory.")
+def audit(server,  log):
+    if server == 'nginx':
+        generate_csv_reports(log)    
+    
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    sys.exit(audit())  # pragma: no cover

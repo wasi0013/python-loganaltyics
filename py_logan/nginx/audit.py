@@ -92,7 +92,6 @@ def get_demographic(data: list) -> list:
 
 
 def generate_csv_reports(log_dir: str) -> None:
-    log_dir = "logs/"
     demographic_csv = "demographic_report.csv"
     main_report_csv = "main_report.csv"
     data = parse_logs(log_dir)
@@ -110,6 +109,6 @@ def generate_csv_reports(log_dir: str) -> None:
             lambda ip: ips.count(ip)
         )
         demographic_df.to_csv(demographic_csv, index=False)
-        main_df = pd.merge([main_df, demographic_df], on=["ip"], how="inner")
+        main_df = main_df.merge(demographic_df, on=["ip"], how="inner")
     main_df.to_csv(main_report_csv, index=False)
 
